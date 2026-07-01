@@ -1,4 +1,4 @@
-readme_content = """# 🚀 DevOps & Docker Journey
+## 🚀 DevOps & Docker Journey
 
 Tracking my transition from *"It works on my machine"* to production-ready containerized deployments. Started right after wrapping up college semester exams!
 
