@@ -5,5 +5,5 @@ COPY ./package-lock.json .
 
 RUN npm install
 
-COPY ./server.js .
+COPY . . 
 CMD ["node","server.js"]
