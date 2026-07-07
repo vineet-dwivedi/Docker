@@ -12,3 +12,17 @@ services:
       - /app/node_modules
     working_dir: /app
     command: npm run dev
+
+  frontend:
+    build:
+      context: ./FRONTEND
+      dockerfile: dockerfile
+    container_name: frontend_container
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./FRONTEND:/app
+      - /app/node_modules
+    working_dir: /app
+    command: npm run dev
+
