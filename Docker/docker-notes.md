@@ -267,6 +267,4 @@ app.use(cors()); // Standard wildcard enablement for rapid dev loops
 
 ---
 
-## �🏆 Tips for Success
-
 > ⚠️ **Nodemon Polling Tip:** When running Docker on Windows/WSL, always append the `-L` flag (`nodemon -L server.js`) to force legacy file polling. Otherwise, file updates on the host computer might not trigger automatic reload loops inside the container!
