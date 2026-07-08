@@ -6,7 +6,7 @@ services:
       dockerfile: dockerfile
     container_name: backend_container
     ports:
-      - "8000:3000"
+      - "3000:3000"
     volumes:
       - ./BACKEND:/app
       - /app/node_modules
@@ -19,7 +19,7 @@ services:
       dockerfile: dockerfile
     container_name: frontend_container
     ports:
-      - "3000:3000"
+      - "5173:5173"
     volumes:
       - ./FRONTEND:/app
       - /app/node_modules
