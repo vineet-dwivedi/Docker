@@ -133,51 +133,24 @@ Cloud infrastructure parameters require absolute segregation to prevent unauthor
 
 When multiple corporate entities or disconnected applications deploy to the cloud, they are allocated completely separate VPC containers. They cannot sneak into each other's boundaries, keeping them strictly isolated from one another.
 
-<div align="center">
-  <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=260&q=80" width="220" alt="Cloud infrastructure" />
-  <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=260&q=80" width="220" alt="Server network" />
-</div>
-
 ```mermaid
 flowchart TB
-    AWS["🌐 AWS Global Cloud Platform"]
+    A[🌐 AWS Global Cloud Platform] --> B[🎬 Netflix Production VPC]
+    A --> C[🎥 Hotstar Production VPC]
 
-    subgraph Netflix["📺 Netflix Production VPC"]
-        direction LR
-        subgraph NPublic["🟢 Public Subnet"]
-            ALB["🔀 Application Load Balancer<br/>Port 80/443"]
-        end
-        subgraph NPrivate["🔴 Private Subnet"]
-            ECS["🧠 ECS Backend Container<br/>Port 3000"]
-            DB["🗄️ MongoDB / Database Store"]
-        end
-        ALB --> ECS
-        ECS --> DB
-    end
+    B --> B1[🔓 Public Subnet<br/>Internet Gateway<br/>ALB :80/443]
+    B --> B2[🔒 Private Subnet<br/>ECS Backend<br/>MongoDB]
 
-    subgraph Hotstar["🎬 Hotstar Production VPC"]
-        direction LR
-        subgraph HPublic["🟢 Public Subnet"]
-            TB["⚖️ Traffic Balancer"]
-        end
-        subgraph HPrivate["🔴 Private Subnet"]
-            SE["🎥 Streaming Engine"]
-            UDB["🗄️ Core User Database"]
-        end
-        TB --> SE
-        SE --> UDB
-    end
+    C --> C1[🔓 Public Subnet<br/>Traffic Balancer]
+    C --> C2[🔒 Private Subnet<br/>Streaming Engine<br/>User Database]
 
-    AWS --> Netflix
-    AWS --> Hotstar
+    B1 --> B1a[⚡ App Load Balancer]
+    B2 --> B2a[🧠 ECS Backend Container<br/>Port 3000]
+    B2 --> B2b[🗄️ MongoDB Store]
 
-    classDef core fill:#0f172a,stroke:#38bdf8,color:#ffffff,stroke-width:2px;
-    classDef public fill:#064e3b,stroke:#34d399,color:#ffffff,stroke-width:1.5px;
-    classDef private fill:#7f1d1d,stroke:#f87171,color:#ffffff,stroke-width:1.5px;
-
-    class AWS core;
-    class NPublic,HPublic public;
-    class NPrivate,HPrivate private;
+    C1 --> C1a[🌍 Public Traffic Entry]
+    C2 --> C2a[📺 Streaming Engine]
+    C2 --> C2b[👤 Core User Database]
 ```
 
 </details>
