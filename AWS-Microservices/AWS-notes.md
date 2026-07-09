@@ -133,20 +133,51 @@ Cloud infrastructure parameters require absolute segregation to prevent unauthor
 
 When multiple corporate entities or disconnected applications deploy to the cloud, they are allocated completely separate VPC containers. They cannot sneak into each other's boundaries, keeping them strictly isolated from one another.
 
-```text
-AWS GLOBAL CLOUD PLATFORM
-├── NETFLIX PRODUCTION VPC
-│   ├── PUBLIC SUBNET (Exposed via Gateway)
-│   │   └── Application Load Balancer [Port 80/443]
-│   └── PRIVATE SUBNET (Fully Isolated)
-│       ├── ECS Backend Container [Port 3000]
-│       └── MongoDB / Database Store
-└── HOTSTAR PRODUCTION VPC
-    ├── PUBLIC SUBNET
-    │   └── Traffic Balancer
-    └── PRIVATE SUBNET
-        ├── Streaming Engine
-        └── Core User Database
+<div align="center">
+  <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=260&q=80" width="220" alt="Cloud infrastructure" />
+  <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=260&q=80" width="220" alt="Server network" />
+</div>
+
+```mermaid
+flowchart TB
+    AWS["🌐 AWS Global Cloud Platform"]
+
+    subgraph Netflix["📺 Netflix Production VPC"]
+        direction LR
+        subgraph NPublic["🟢 Public Subnet"]
+            ALB["🔀 Application Load Balancer<br/>Port 80/443"]
+        end
+        subgraph NPrivate["🔴 Private Subnet"]
+            ECS["🧠 ECS Backend Container<br/>Port 3000"]
+            DB["🗄️ MongoDB / Database Store"]
+        end
+        ALB --> ECS
+        ECS --> DB
+    end
+
+    subgraph Hotstar["🎬 Hotstar Production VPC"]
+        direction LR
+        subgraph HPublic["🟢 Public Subnet"]
+            TB["⚖️ Traffic Balancer"]
+        end
+        subgraph HPrivate["🔴 Private Subnet"]
+            SE["🎥 Streaming Engine"]
+            UDB["🗄️ Core User Database"]
+        end
+        TB --> SE
+        SE --> UDB
+    end
+
+    AWS --> Netflix
+    AWS --> Hotstar
+
+    classDef core fill:#0f172a,stroke:#38bdf8,color:#ffffff,stroke-width:2px;
+    classDef public fill:#064e3b,stroke:#34d399,color:#ffffff,stroke-width:1.5px;
+    classDef private fill:#7f1d1d,stroke:#f87171,color:#ffffff,stroke-width:1.5px;
+
+    class AWS core;
+    class NPublic,HPublic public;
+    class NPrivate,HPrivate private;
 ```
 
 </details>
