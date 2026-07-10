@@ -1,0 +1,26 @@
+services:
+  backend:
+    build: 
+      context: ./Backend
+      dockerfile: dockerfile  # Standard 'D' capital hota hai, check kar lena
+    container_name: aws-microservices-backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./Backend:/app        # <-- Fixed: Added '.' for relative path
+      - /app/node_modules
+    working_dir: /app
+    command: npm run dev
+
+  frontend:
+    build:                    # <-- Fixed: Sahi indentation (2 spaces)
+      context: ./Frontend
+      dockerfile: dockerfile  # Standard 'D' capital check kar lena
+    container_name: aws-microservices-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./Frontend:/app       # <-- Fixed: Added '.' for relative path
+      - /app/node_modules
+    working_dir: /app
+    command: npm run dev
