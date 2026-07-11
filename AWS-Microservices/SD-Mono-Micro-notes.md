@@ -7,38 +7,148 @@
   <div class="hero-content">
     <h2>🏗️ Choose the right architecture with clarity</h2>
     <p>Monoliths give speed and simplicity. Microservices give flexibility and scale. The real art is knowing when to use which.</p>
+    <div class="chip-row">
+      <span class="chip">⚡ Fast to start</span>
+      <span class="chip">📈 Built for scale</span>
+      <span class="chip">🧠 Decision-driven</span>
+    </div>
   </div>
 </div>
 
 <style>
+body {
+  animation: pageFade 0.8s ease;
+}
 .hero-card {
   position: relative;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: 20px;
   padding: 24px;
   margin: 20px 0 30px;
-  background: linear-gradient(135deg, #0f172a, #1e3a8a, #2563eb);
+  background: linear-gradient(135deg, #020617, #1d4ed8, #38bdf8);
   color: white;
-  box-shadow: 0 12px 35px rgba(37, 99, 235, 0.25);
-  animation: floatIn 1.2s ease-out;
+  box-shadow: 0 16px 45px rgba(56, 189, 248, 0.25);
+  animation: floatIn 1.2s ease-out, heroPulse 4.5s ease-in-out infinite;
+}
+.hero-card::before,
+.hero-card::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  filter: blur(8px);
+  animation: orbit 6s linear infinite;
+}
+.hero-card::before {
+  width: 140px;
+  height: 140px;
+  top: -40px;
+  right: -30px;
+}
+.hero-card::after {
+  width: 120px;
+  height: 120px;
+  bottom: -35px;
+  left: -20px;
+  animation-direction: reverse;
 }
 .hero-glow {
   position: absolute;
   inset: -20px;
-  background: radial-gradient(circle, rgba(255,255,255,0.18), transparent 55%);
-  animation: pulseGlow 3s infinite alternate;
+  background: radial-gradient(circle, rgba(255,255,255,0.2), transparent 55%);
+  animation: pulseGlow 3s ease-in-out infinite alternate;
 }
 .hero-content {
   position: relative;
   z-index: 1;
 }
+.hero-content h2 {
+  animation: slideIn 0.9s ease both;
+}
+.hero-content p {
+  animation: fadeUp 1.1s ease 0.2s both;
+}
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+.chip {
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.16);
+  backdrop-filter: blur(8px);
+  animation: chipBounce 1s ease both;
+}
+.chip:nth-child(2) { animation-delay: 0.15s; }
+.chip:nth-child(3) { animation-delay: 0.25s; }
+h1, h2, h3 {
+  animation: titleGlow 2s ease-in-out infinite alternate;
+}
+ul li {
+  animation: listPop 0.6s ease both;
+}
+ul li:nth-child(2) { animation-delay: 0.08s; }
+ul li:nth-child(3) { animation-delay: 0.16s; }
+pre, code {
+  animation: codeGlow 2.2s ease-in-out infinite alternate;
+}
+.animated-table tr {
+  animation: rowFade 0.8s ease both;
+}
+.animated-table tr:nth-child(2) { animation-delay: 0.08s; }
+.animated-table tr:nth-child(3) { animation-delay: 0.16s; }
+.animated-table tr:nth-child(4) { animation-delay: 0.24s; }
+.animated-table tr:nth-child(5) { animation-delay: 0.32s; }
+.animated-table tr:nth-child(6) { animation-delay: 0.4s; }
+@keyframes pageFade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 @keyframes floatIn {
-  from { transform: translateY(10px); opacity: 0; }
+  from { transform: translateY(12px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
+@keyframes heroPulse {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
 @keyframes pulseGlow {
-  from { transform: scale(0.95); opacity: 0.7; }
+  from { transform: scale(0.95); opacity: 0.8; }
   to { transform: scale(1.05); opacity: 1; }
+}
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(0px); }
+  to { transform: rotate(360deg) translateX(0px); }
+}
+@keyframes slideIn {
+  from { transform: translateX(-10px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes fadeUp {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes chipBounce {
+  from { transform: translateY(6px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes listPop {
+  from { transform: translateX(-6px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes codeGlow {
+  from { box-shadow: 0 0 0 rgba(56,189,248,0.15); }
+  to { box-shadow: 0 0 10px rgba(56,189,248,0.25); }
+}
+@keyframes rowFade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes titleGlow {
+  from { text-shadow: 0 0 0 rgba(255,255,255,0.06); }
+  to { text-shadow: 0 0 10px rgba(56,189,248,0.3); }
 }
 </style>
 
@@ -133,14 +243,43 @@ flowchart LR
 
 ## 3. 📊 Side-by-Side Comparison
 
-| Feature | Monolithic | Microservices |
-|---|---|---|
-| Codebase Layout | Single unified codebase | Multiple services with separate codebases |
-| Deployment | One big deployment | Independent rolling deployments |
-| Database Design | Shared database | Database per service |
-| Scaling | Whole app scales together | Individual services scale independently |
-| Team Structure | Great for small teams | Great for large, independent teams |
-| Debugging | Faster and simpler | Requires centralized logs and tracing |
+<table class="animated-table">
+  <tr>
+    <th>Feature</th>
+    <th>Monolithic</th>
+    <th>Microservices</th>
+  </tr>
+  <tr>
+    <td>Codebase Layout</td>
+    <td>Single unified codebase</td>
+    <td>Multiple services with separate codebases</td>
+  </tr>
+  <tr>
+    <td>Deployment</td>
+    <td>One big deployment</td>
+    <td>Independent rolling deployments</td>
+  </tr>
+  <tr>
+    <td>Database Design</td>
+    <td>Shared database</td>
+    <td>Database per service</td>
+  </tr>
+  <tr>
+    <td>Scaling</td>
+    <td>Whole app scales together</td>
+    <td>Individual services scale independently</td>
+  </tr>
+  <tr>
+    <td>Team Structure</td>
+    <td>Great for small teams</td>
+    <td>Great for large, independent teams</td>
+  </tr>
+  <tr>
+    <td>Debugging</td>
+    <td>Faster and simpler</td>
+    <td>Requires centralized logs and tracing</td>
+  </tr>
+</table>
 
 ---
 
